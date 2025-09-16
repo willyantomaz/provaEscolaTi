@@ -1,13 +1,13 @@
 package br.com.unicesumar.prova.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity(name = "Comodo")
 @Table(name = "Comodo")
-
 public class Comodo {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idComodo;
 
     private String nome;

@@ -1,9 +1,6 @@
 package br.com.unicesumar.prova.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 
 import java.util.Date;
@@ -13,6 +10,9 @@ import java.util.List;
 @Entity(name = "Imovel")
 public class Imovel {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idImovel;
 
     private String descricao;
@@ -21,7 +21,7 @@ public class Imovel {
 
     private String endereco;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "Comodo")
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
     private List<Comodo> comodos;
 
     public Comodo addComodo(String nome){
