@@ -1,5 +1,6 @@
 package br.com.unicesumar.prova.controller;
 
+import br.com.unicesumar.prova.dto.ComodoDTO;
 import br.com.unicesumar.prova.entity.Imovel;
 import br.com.unicesumar.prova.service.ImovelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +33,31 @@ public class ImovelController {
     }
 
     @PutMapping()
-    public ResponseEntity<Imovel> atualizaImovel(@RequestBody Imovel imovel){
-        return ResponseEntity.ok(imovelService.edit(imovel));
+    public Object atualizaImovel(@RequestBody Imovel imovel){
+        try {
+            return ResponseEntity.ok(imovelService.edit(imovel));
+        }catch (RuntimeException e){
+           return ResponseEntity.status(400).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{idImovel}")
     public ResponseEntity<Void> delete(@RequestParam Integer idImovel){
         imovelService.delete(idImovel);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("addComodo")
+    public ResponseEntity<Imovel> addComod(@RequestBody ComodoDTO imovelComodo){
+        Optional<Imovel> imovel = imovelService.findById(imovelComodo.getIdImovel());
+        imovel.get().addComodo(imovelComodo.getNomeComodo());
+        return ResponseEntity.ok(imovelService.edit(imovel.get()));
+    }
+
+    @PutMapping("deleteComodo")
+    public ResponseEntity<Imovel> deletComodo(@RequestBody ComodoDTO imovelComodo){
+        Optional<Imovel> imovel = imovelService.findById(imovelComodo.getIdImovel());
+        imovel.get().removerComodo(imovelComodo.getIdComodo());
+        return ResponseEntity.ok(imovelService.edit(imovel.get()));
     }
 }

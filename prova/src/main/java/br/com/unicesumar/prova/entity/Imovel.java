@@ -12,7 +12,7 @@ public class Imovel {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idImovel;
 
     private String descricao;

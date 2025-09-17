@@ -3,6 +3,7 @@ package br.com.unicesumar.prova.service;
 import br.com.unicesumar.prova.entity.Imovel;
 import br.com.unicesumar.prova.repository.ImovelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +28,9 @@ public class ImovelService {
     }
 
     public Imovel edit(Imovel imovel){
+        if(imovel.getComodos().isEmpty()){
+            throw new RuntimeException("Erro imovel não pode ficar sem comodo");
+        }
         return imovelRepository.save(imovel);
     }
 

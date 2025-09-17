@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Comodo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idComodo;
 
     private String nome;
